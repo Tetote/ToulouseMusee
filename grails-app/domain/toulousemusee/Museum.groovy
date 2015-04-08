@@ -9,7 +9,7 @@ class Museum {
     String busAccess
 
     Manager manager
-    Adress adress
+    Address address
 
     static belongsTo = [
         MuseumVisitRequest
@@ -17,6 +17,10 @@ class Museum {
 
     static constraints = {
 
-
+        name blank: false, nullable: false
+        hours blank: false, nullable: false
+        phoneNumber blank: false, nullable: false
+        metroAccess nullable: true
+        busAccess nullable: true
     }
 }
