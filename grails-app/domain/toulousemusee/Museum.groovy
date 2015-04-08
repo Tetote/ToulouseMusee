@@ -11,8 +11,8 @@ class Museum {
     Manager manager
     Address address
 
-    static belongsTo = [
-        MuseumVisitRequest
+    static hasMany = [
+            museumVisitRequest : MuseumVisitRequest
     ]
 
     static constraints = {

@@ -12,8 +12,8 @@ class VisitRequest {
     int nbPeople
     Status status
 
-    static belongsTo = [
-        MuseumVisitRequest
+    static hasMany = [
+            museumVisitRequest : MuseumVisitRequest
     ]
 
     static constraints = {
