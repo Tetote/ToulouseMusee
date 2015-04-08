@@ -5,8 +5,8 @@ class MuseumVisitRequest {
     Date requestDate
 
     static hasOne = [
-        museum : Museum,
-        visitRequest : VisitRequest
+        Museum,
+        VisitRequest
     ]
 
     static constraints = {
