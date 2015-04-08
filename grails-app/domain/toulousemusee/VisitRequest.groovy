@@ -12,6 +12,10 @@ class VisitRequest {
     int nbPeople
     Status status
 
+    static belongsTo = [
+        MuseumVisitRequest
+    ]
+
     static constraints = {
     }
 }
