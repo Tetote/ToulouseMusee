@@ -48,5 +48,7 @@ class MuseumSpec extends Specification {
         null                                 | "Ouvert tous les jours de 9h à 19h." | "561222192"   | Mock(Address)  | Mock(Manager)
         "ENSEMBLE CONVENTUEL DES JACOBINS"   | null                                 | "561222192"   | Mock(Address)  | Mock(Manager)
         "ENSEMBLE CONVENTUEL DES JACOBINS"   | "Ouvert tous les jours de 9h à 19h." | null          | Mock(Address)  | Mock(Manager)
+        "ENSEMBLE CONVENTUEL DES JACOBINS"   | "Ouvert tous les jours de 9h à 19h." | "561222192"   | null           | Mock(Manager)
+        "ENSEMBLE CONVENTUEL DES JACOBINS"   | "Ouvert tous les jours de 9h à 19h." | "561222192"   | Mock(Address)  | null
     }
 }

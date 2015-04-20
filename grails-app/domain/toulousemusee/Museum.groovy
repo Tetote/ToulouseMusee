@@ -22,5 +22,7 @@ class Museum {
         phoneNumber blank: false, nullable: false
         metroAccess nullable: true
         busAccess nullable: true
+        manager nullable: false
+        address nullable: false
     }
 }
