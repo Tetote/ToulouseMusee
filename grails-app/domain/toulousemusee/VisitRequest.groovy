@@ -6,7 +6,7 @@ class VisitRequest {
         PENDING, CONFIRMED, REFUSED
     }
 
-    int code
+    Integer code
     Date startPeriodDate
     Date endPeriodDate
     int nbPeople
@@ -17,5 +17,10 @@ class VisitRequest {
     ]
 
     static constraints = {
+
+        code nullable: false
+        startPeriodDate nullable: false
+        endPeriodDate nullable: false
+        nbPeople min: 1
     }
 }
