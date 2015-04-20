@@ -19,8 +19,8 @@ class ManagerSpec extends Specification {
         manager.validate()
 
         where:
-        name                 | _
-        "Mairie de Toulouse" | _
+        name                               | _
+        "Mairie de Toulouse - DGA Culture" | _
     }
 
     @Unroll
