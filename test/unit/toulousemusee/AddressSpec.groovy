@@ -18,11 +18,11 @@ class AddressSpec extends Specification {
         address.validate()
 
         where:
-        num | street                    | zipCode   | city
-        "1" | "Toluka Lake Street"      | "13666"   | "Silent Hill"
-        "1" | "rue lawl"                | "13042"   | "Poney Land"
-        "1" | "rue lawl"                | "13042"   | "Relawl ville"
-        "1" | "rue lawl"                | "13042"   | "Une ville"
+        num  | street                 | zipCode   | city
+        "2"  | "Rue des Archives"     | "31500"   | "Toulouse"
+        "5"  | "Rue Saint Pantaleon"  | "31000"   | "Toulouse"
+        "69" | "Rue Pargaminieres"    | "31000"   | "Toulouse"
+        "31" | "Rue de la Fonderie"   | "31000"   | "Toulouse"
     }
 
     void "test l'invalidite d'un musee valide"(String num, String street, String zipCode, String city) {
@@ -34,14 +34,14 @@ class AddressSpec extends Specification {
         !address.validate()
 
         where:
-        num     | street                | zipCode   | city
-        null    | "Toluka Lake Street"  | "13666"   | "Silent Hill"
-        ""      | "Toluka Lake Street"  | "13666"   | "Silent Hill"
-        "1"     | ""                    | "13042"   | "Poney Land"
-        "1"     | "rue lawl"            | ""        | "Relawl ville"
-        "1"     | "rue lawl"            | "13042"   | ""
-        "1"     | null                  | "13042"   | "Poney Land"
-        "1"     | "rue lawl"            | null      | "Relawl ville"
-        "1"     | "rue lawl"            | "13042"   | null
+        num  | street               | zipCode   | city
+        null | "Rue des Archives"   | "31500"   | "Toulouse"
+        ""   | "Rue des Archives"   | "31500"   | "Toulouse"
+        "2"  | ""                   | "31500"   | "Toulouse"
+        "2"  | "Rue des Archives"   | ""        | "Toulouse"
+        "2"  | "Rue des Archives"   | "31500"   | ""
+        "2"  | null                 | "31500"   | "Toulouse"
+        "2"  | "Rue des Archives"   | null      | "Toulouse"
+        "2"  | "Rue des Archives"   | "31500"   | null
     }
 }
