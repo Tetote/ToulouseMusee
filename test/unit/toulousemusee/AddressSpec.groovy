@@ -2,6 +2,7 @@ package toulousemusee
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -9,6 +10,7 @@ import spock.lang.Specification
 @TestFor(Address)
 class AddressSpec extends Specification {
 
+    @Unroll
     void "test la validite d'un musee valide"(String num, String street, String zipCode, String city) {
 
         given: "une adresse initialise avec un numero, une rue, un code postal et une ville non vides"
@@ -25,6 +27,7 @@ class AddressSpec extends Specification {
         "31" | "Rue de la Fonderie"   | "31000"   | "Toulouse"
     }
 
+    @Unroll
     void "test l'invalidite d'un musee valide"(String num, String street, String zipCode, String city) {
 
         given: "une adresse initialise avec un numero, une rue, un code postal et une ville non vides"

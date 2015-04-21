@@ -2,6 +2,7 @@ package toulousemusee
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -9,14 +10,9 @@ import spock.lang.Specification
 @TestFor(VisitRequest)
 class VisitRequestSpec extends Specification {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "test de validité d'une visitRequest valide"(code, startPeriodDate, endPeriodDate, nbPeople) {
-        given: "une visitRequest initialise avec un code, une date de début, une date de fin non null, et un nb de personne >= 1"
+    @Unroll
+    void "test de validite d'une visitRequest valide"(Integer code, Date startPeriodDate, Date endPeriodDate, int nbPeople) {
+        given: "une visitRequest initialise avec un code, une date de debut, une date de fin non null, et un nb de personne >= 1"
         VisitRequest visitRequest = new VisitRequest(
                 code: code,
                 startPeriodDate: startPeriodDate,
@@ -25,7 +21,6 @@ class VisitRequestSpec extends Specification {
                 status: VisitRequest.Status.CONFIRMED)
 
         expect: "la visitRequest est valide"
-        visitRequest.save(failOnError: true)
         visitRequest.validate()
 
         where:
@@ -36,9 +31,9 @@ class VisitRequestSpec extends Specification {
         42      | new Date(2015, 11, 13)    | new Date(2015, 11, 19)    | 5
     }
 
-    void "test d'invalidité d'une visitRequest non valide"(code, startPeriodDate, endPeriodDate, nbPeople) {
-
-        given: "une visitRequest initialise avec un code, une date de début, une date de fin et un statu non null, et un nb de personne >= 1"
+    @Unroll
+    void "test d'invalidite d'une visitRequest non valide"(Integer code, Date startPeriodDate, Date endPeriodDate, int nbPeople) {
+        given: "une visitRequest initialise avec un code, une date de debut, une date de fin et un status non null, et un nb de personne >= 1"
         VisitRequest visitRequest = new VisitRequest(
                 code: code,
                 startPeriodDate: startPeriodDate,
@@ -51,9 +46,9 @@ class VisitRequestSpec extends Specification {
 
         where:
         code    | startPeriodDate           | endPeriodDate             | nbPeople
-        /*null    | new Date(2015, 11, 13)    | new Date(2015, 11, 20)    | 3
+        null    | new Date(2015, 11, 13)    | new Date(2015, 11, 20)    | 3
         2       | null                      | new Date(2015, 11, 15)    | 5
-        2       | new Date(2015, 11, 13)    | null                      | 5*/
+        2       | new Date(2015, 11, 13)    | null                      | 5
         42      | new Date(2015, 11, 13)    | new Date(2015, 11, 19)    | 0
     }
 }
