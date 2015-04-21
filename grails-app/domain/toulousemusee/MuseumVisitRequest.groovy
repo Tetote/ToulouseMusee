@@ -10,6 +10,8 @@ class MuseumVisitRequest {
     ]
 
     static constraints = {
-
+        requestDate nullable: false
+        museum nullable: false
+        visitRequest nullable: false
     }
 }
