@@ -34,7 +34,7 @@
 					
 						<g:sortableColumn property="busAccess" title="${message(code: 'museum.busAccess.label', default: 'Bus Access')}" />
 					
-						<th><g:message code="museum.address.label" default="Address" /></th>
+						<th><g:message code="museum.manager.label" default="Manager" /></th>
 					
 					</tr>
 				</thead>
@@ -52,7 +52,7 @@
 					
 						<td>${fieldValue(bean: museumInstance, field: "busAccess")}</td>
 					
-						<td>${fieldValue(bean: museumInstance, field: "address")}</td>
+						<td>${fieldValue(bean: museumInstance, field: "manager")}</td>
 					
 					</tr>
 				</g:each>

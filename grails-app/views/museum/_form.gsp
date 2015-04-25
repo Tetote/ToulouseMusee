@@ -47,6 +47,15 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: museumInstance, field: 'manager', 'error')} required">
+	<label for="manager">
+		<g:message code="museum.manager.label" default="Manager" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="manager" name="manager.id" from="${toulousemusee.Manager.list()}" optionKey="id" required="" value="${museumInstance?.manager?.id}" class="many-to-one"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: museumInstance, field: 'address', 'error')} required">
 	<label for="address">
 		<g:message code="museum.address.label" default="Address" />
@@ -56,12 +65,21 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: museumInstance, field: 'manager', 'error')} required">
-	<label for="manager">
-		<g:message code="museum.manager.label" default="Manager" />
-		<span class="required-indicator">*</span>
+<div class="fieldcontain ${hasErrors(bean: museumInstance, field: 'museumVisitRequest', 'error')} ">
+	<label for="museumVisitRequest">
+		<g:message code="museum.museumVisitRequest.label" default="Museum Visit Request" />
+		
 	</label>
-	<g:select id="manager" name="manager.id" from="${toulousemusee.Manager.list()}" optionKey="id" required="" value="${museumInstance?.manager?.id}" class="many-to-one"/>
+	
+<ul class="one-to-many">
+<g:each in="${museumInstance?.museumVisitRequest?}" var="m">
+    <li><g:link controller="museumVisitRequest" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="museumVisitRequest" action="create" params="['museum.id': museumInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'museumVisitRequest.label', default: 'MuseumVisitRequest')])}</g:link>
+</li>
+</ul>
+
 
 </div>
 

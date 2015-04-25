@@ -68,6 +68,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${museumInstance?.manager}">
+				<li class="fieldcontain">
+					<span id="manager-label" class="property-label"><g:message code="museum.manager.label" default="Manager" /></span>
+					
+						<span class="property-value" aria-labelledby="manager-label"><g:link controller="manager" action="show" id="${museumInstance?.manager?.id}">${museumInstance?.manager?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${museumInstance?.address}">
 				<li class="fieldcontain">
 					<span id="address-label" class="property-label"><g:message code="museum.address.label" default="Address" /></span>
@@ -77,11 +86,13 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${museumInstance?.manager}">
+				<g:if test="${museumInstance?.museumVisitRequest}">
 				<li class="fieldcontain">
-					<span id="manager-label" class="property-label"><g:message code="museum.manager.label" default="Manager" /></span>
+					<span id="museumVisitRequest-label" class="property-label"><g:message code="museum.museumVisitRequest.label" default="Museum Visit Request" /></span>
 					
-						<span class="property-value" aria-labelledby="manager-label"><g:link controller="manager" action="show" id="${museumInstance?.manager?.id}">${museumInstance?.manager?.encodeAsHTML()}</g:link></span>
+						<g:each in="${museumInstance.museumVisitRequest}" var="m">
+						<span class="property-value" aria-labelledby="museumVisitRequest-label"><g:link controller="museumVisitRequest" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
+						</g:each>
 					
 				</li>
 				</g:if>
