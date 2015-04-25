@@ -4,6 +4,10 @@ class MuseumVisitRequest {
 
     Date requestDate
 
+    String toString() {
+        "$requestDate"
+    }
+
     static belongsTo = [
         museum : Museum,
         visitRequest : VisitRequest

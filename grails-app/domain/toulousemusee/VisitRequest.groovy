@@ -12,6 +12,10 @@ class VisitRequest {
     int nbPeople
     Status status
 
+    String toString() {
+        "$code [$startPeriodDate-$endPeriodDate] $nbPeople -> $status"
+    }
+
     static hasMany = [
             museumVisitRequest : MuseumVisitRequest
     ]

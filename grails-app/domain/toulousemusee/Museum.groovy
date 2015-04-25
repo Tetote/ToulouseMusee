@@ -11,6 +11,10 @@ class Museum {
     Manager manager
     Address address
 
+    String toString() {
+        "$name"
+    }
+
     static hasMany = [
             museumVisitRequest : MuseumVisitRequest
     ]
