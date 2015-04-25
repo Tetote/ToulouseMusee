@@ -69,4 +69,20 @@ class AddressSpec extends Specification {
         then: "on obtient la liste des zipCode"
         listZipCode.size() == 1
     }
+
+    @Unroll
+    void "test toString"() {
+        given: "une address"
+        String num = "2"
+        String street = "Rue des Archives"
+        String zipCode = "31500"
+        String city = "Toulouse"
+        Address address = new Address(num: num, street: street, zipCode: zipCode, city: city)
+
+        when: "on veut l'afficher"
+        String toString = address.toString()
+
+        then: "le toString est bien affiche"
+        toString == num+" "+street+" "+zipCode+" "+city
+    }
 }

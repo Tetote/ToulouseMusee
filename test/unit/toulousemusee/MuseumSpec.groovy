@@ -51,4 +51,17 @@ class MuseumSpec extends Specification {
         "ENSEMBLE CONVENTUEL DES JACOBINS"   | "Ouvert tous les jours de 9h à 19h." | "561222192"   | null           | Mock(Manager)
         "ENSEMBLE CONVENTUEL DES JACOBINS"   | "Ouvert tous les jours de 9h à 19h." | "561222192"   | Mock(Address)  | null
     }
+
+    @Unroll
+    void "test toString"() {
+        given: "un museum"
+        String name = "ENSEMBLE CONVENTUEL DES JACOBINS"
+        Museum museum = new Museum(name: name)
+
+        when: "on veut l'afficher"
+        String toString = museum.toString()
+
+        then: "le toString est bien affiche"
+        toString == name
+    }
 }

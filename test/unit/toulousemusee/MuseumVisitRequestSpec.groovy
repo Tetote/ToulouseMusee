@@ -43,4 +43,17 @@ class MuseumVisitRequestSpec extends Specification {
         new Date(2015,02,02) | null         | Mock(VisitRequest)
         new Date(2015,02,02) | Mock(Museum) | null
     }
+
+    @Unroll
+    void "test toString"() {
+        given: "une museumVisitRequest"
+        Date requestDate = new Date(2015,02,02)
+        MuseumVisitRequest museumVisitRequest = new MuseumVisitRequest(requestDate: requestDate)
+
+        when: "on veut l'afficher"
+        String toString = museumVisitRequest.toString()
+
+        then: "le toString est bien affiche"
+        toString == ""+requestDate
+    }
 }

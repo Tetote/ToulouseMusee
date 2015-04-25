@@ -51,4 +51,26 @@ class VisitRequestSpec extends Specification {
         2       | new Date(2015, 11, 13)    | null                      | 5
         42      | new Date(2015, 11, 13)    | new Date(2015, 11, 19)    | 0
     }
+
+    @Unroll
+    void "test toString"() {
+        given: "une visitRequest"
+        Integer code = 2
+        Date startPeriodDate = new Date(2015, 11, 13)
+        Date endPeriodDate = new Date(2015, 11, 20)
+        int nbPeople = 5
+        VisitRequest.Status status = VisitRequest.Status.REFUSED
+        VisitRequest visitRequest = new VisitRequest(
+                code: code,
+                startPeriodDate: startPeriodDate,
+                endPeriodDate: endPeriodDate,
+                nbPeople: nbPeople,
+                status: status)
+
+        when: "on veut l'afficher"
+        String toString = visitRequest.toString()
+
+        then: "le toString est bien affiche"
+        toString == code+" ["+startPeriodDate+"-"+endPeriodDate+"] "+nbPeople+" -> "+status
+    }
 }

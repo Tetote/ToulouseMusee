@@ -36,4 +36,17 @@ class ManagerSpec extends Specification {
         null | _
         ""   | _
     }
+
+    @Unroll
+    void "test toString"() {
+        given: "un manager"
+        String name = "Mairie de Toulouse - DGA Culture"
+        Manager manager = new Manager(name: name)
+
+        when: "on veut l'afficher"
+        String toString = manager.toString()
+
+        then: "le toString est bien affiche"
+        toString == name
+    }
 }
