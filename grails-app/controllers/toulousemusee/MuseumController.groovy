@@ -8,11 +8,25 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MuseumController {
 
+    MuseumService museumService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Museum.list(params), model:[museumInstanceCount: Museum.count()]
+
+        render(view: '/index',
+                model: [zipCodeInstanceList: Address.listZipCode()])
+    }
+
+    def doSearchMuseums() {
+        List<Museum> museumsList = museumService.searchMuseums(params.name, params.address, params.zipCode)
+
+        render(view: '/index',
+                params: [name: params.name, address: params.address, zipCode: params.zipCode],
+                model: [museumInstanceList: museumsList,
+                        museumInstanceCount: museumsList.size(),
+                        zipCodeInstanceList: Address.listZipCode()])
     }
 
     def show(Museum museumInstance) {
@@ -35,7 +49,10 @@ class MuseumController {
             return
         }
 
-        museumInstance.save flush:true
+        museumService.insertOrUpdateMuseumForAddressAndManager(
+                museumInstance,
+                museumInstance.address,
+                museumInstance.manager)
 
         request.withFormat {
             form multipartForm {
@@ -62,7 +79,10 @@ class MuseumController {
             return
         }
 
-        museumInstance.save flush:true
+        museumService.insertOrUpdateMuseumForAddressAndManager(
+                museumInstance,
+                museumInstance.address,
+                museumInstance.manager)
 
         request.withFormat {
             form multipartForm {
@@ -81,7 +101,7 @@ class MuseumController {
             return
         }
 
-        museumInstance.delete flush:true
+        museumService.deleteMuseum(museumInstance)
 
         request.withFormat {
             form multipartForm {

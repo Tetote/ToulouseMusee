@@ -14,10 +14,22 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
   		<asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
+
+		<style>
+			.header {
+				padding-bottom:10px;
+				padding-top:10px;
+				text-align:center;
+			}
+		</style>
+
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
+		<div id="grailsLogo" role="banner" class="header">
+			<!--<a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a>-->
+		<h3>ToulouseMusee - The best application!</h3>
+		</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

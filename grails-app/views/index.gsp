@@ -1,47 +1,12 @@
+<%@ page import="toulousemusee.MuseumController; toulousemusee.Museum" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
+		<title>Welcome to ToulouseMusee</title>
 		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
-
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
-
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
-
-			#status li {
-				line-height: 1.3;
-			}
-
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
-
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
+			body  {
+				max-width:1300px;
 			}
 
 			h2 {
@@ -50,72 +15,85 @@
 				font-size: 1em;
 			}
 
+			h3 {
+				margin:10px 0 5px 10px;
+			}
+
 			p {
 				line-height: 1.5;
 				margin: 0.25em 0;
 			}
 
-			#controller-list ul {
-				list-style-position: inside;
-			}
-
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
+			.center {
+				text-align:center;
 			}
 		</style>
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
+			<div id="list-museum" class="content scaffold-list" role="main">
+				<h3>Search museums</h3>
+				<g:if test="${flash.message}">
+					<div class="message" role="status">${flash.message}</div>
+				</g:if>
+				<g:form>
+					<fieldset class="form">
+						<div class="fieldcontain">
+							<label for="name">
+								Name of museum contains:
+							</label>
+							<g:textField name="name"/>
+						</div>
+						<div class="fieldcontain">
+							<label for="zipCode">
+								Zipcode of museum:
+							</label>
+							<g:select name="zipCode" from="${zipCodeInstanceList}" noSelection="['':'-Choose zipCode-']"></g:select>
+						</div>
+						<div class="fieldcontain">
+							<label for="street">
+								Street address of museum contains:
+							</label>
+							<g:textField name="street"/>
+						</div>
+						<div class="center">
+							<g:actionSubmit action="doSearchMuseums" value="Rechercher" />
+						</div>
+					</fieldset>
+				</g:form>
+				<g:if test="museumInstanceList" >
+					<h3>List of museums</h3>
+					<table>
+						<thead>
+						<tr>
+							<g:sortableColumn property="name" title="${message(code: 'museum.name.label', default: 'Name')}" />
+							<g:sortableColumn property="hours" title="${message(code: 'museum.hours.label', default: 'Hours')}" />
+							<g:sortableColumn property="phoneNumber" title="${message(code: 'museum.phoneNumber.label', default: 'Phone Number')}" />
+							<g:sortableColumn property="metroAccess" title="${message(code: 'museum.metroAccess.label', default: 'Metro Access')}" />
+							<g:sortableColumn property="busAccess" title="${message(code: 'museum.busAccess.label', default: 'Bus Access')}" />
+							<th><g:message code="museum.address.label" default="Address" /></th>
+							<th><g:message code="museum.manager.label" default="Manager" /></th>
+						</tr>
+						</thead>
+						<tbody>
+						<g:each in="${museumInstanceList}" status="i" var="museumInstance">
+							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+								<td><g:link action="show" id="${museumInstance.id}">${fieldValue(bean: museumInstance, field: "name")}</g:link></td>
+								<td>${fieldValue(bean: museumInstance, field: "hours")}</td>
+								<td>${fieldValue(bean: museumInstance, field: "phoneNumber")}</td>
+								<td>${fieldValue(bean: museumInstance, field: "metroAccess")}</td>
+								<td>${fieldValue(bean: museumInstance, field: "busAccess")}</td>
+								<td>${fieldValue(bean: museumInstance, field: "address")}</td>
+								<td>${fieldValue(bean: museumInstance, field: "manager")}</td>
+							</tr>
+						</g:each>
+						</tbody>
+					</table>
+					<div class="pagination">
+						<g:paginate total="${museumInstanceCount ?: 0}" />
+					</div>
+				</g:if>
 			</div>
 		</div>
 	</body>
