@@ -47,4 +47,26 @@ class AddressSpec extends Specification {
         "2"  | "Rue des Archives"   | null      | "Toulouse"
         "2"  | "Rue des Archives"   | "31500"   | null
     }
+
+    @Unroll
+    void "test liste des zipCode"() {
+        given: "la classe address"
+
+        when: "on veut la liste des zipCode"
+        List<String> listZipCode = Address.listZipCode()
+
+        then: "on obtient la liste des zipCode"
+        listZipCode.size() == 0
+
+
+        when: "Deux address avec le meme zipCode sont ajoutees"
+        new Address(num: "2", street: "Rue des Archives", zipCode: "31500", city: "Toulouse").save()
+        new Address(num: "2", street: "Rue des Archives", zipCode: "31500", city: "Toulouse").save()
+
+        and: "on veut la liste des zipCode"
+        listZipCode = Address.listZipCode()
+
+        then: "on obtient la liste des zipCode"
+        listZipCode.size() == 1
+    }
 }

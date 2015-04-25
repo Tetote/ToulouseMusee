@@ -18,4 +18,13 @@ class Address {
         zipCode blank: false, nullable: false
         city blank: false, nullable: false
     }
+
+    static List<String> listZipCode() {
+        Set<String> zipCodes = new LinkedHashSet<>()
+
+        for (Address address : list()) {
+            zipCodes.add(address.zipCode)
+        }
+        zipCodes.sort()
+    }
 }
