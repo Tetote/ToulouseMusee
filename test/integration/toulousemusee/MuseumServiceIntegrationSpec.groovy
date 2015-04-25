@@ -8,6 +8,7 @@ import spock.lang.Specification
  */
 class MuseumServiceIntegrationSpec extends Specification{
 
+    JeuTestService jeuTestService
     MuseumService museumService;
 
     void "test insertion ou mise à jour d'un musee avec une adresse et un manager"() {
@@ -103,5 +104,48 @@ class MuseumServiceIntegrationSpec extends Specification{
 
         and: "le musee a pour manager le manager passé en paramètre"
         resultMuseum.manager == manager
+    }
+
+    void "test du moteur de recherche sur les museums"() {
+        given: "les museums fournis par le jeu de test "
+        jeuTestService
+
+        when: "on cherche les museums dont le titre du museum contient 'compagnons'"
+        List<Museum> res = museumService.searchMuseums("compagnons", null, null)
+
+        then: "on récupère uniquement un museum"
+        res.size() == 1
+        res*.name.contains("MUSEE DES COMPAGNONS")
+
+
+        when: "on cherche les museums dont la rue du museum contient 'archives'"
+        res = museumService.searchMuseums(null, "archives", null)
+
+        then: "on récupère uniquement un museum"
+        res.size() == 1
+        res*.name.contains("ARCHIVES MUNICIPALES TOULOUSE")
+
+
+        when: "on cherche les museums dont le code postal du museum est '31300"
+        res = museumService.searchMuseums(null, null, "31300")
+
+        then: "on récupère uniquement un museum"
+        res.size() == 2
+        res*.name.contains("MUSEE DE L'HISTOIRE DE LA MEDECINE DE TOULOUSE")
+        res*.name.contains("MUSEE DES INSTRUMENTS DE MEDECINE DES HOPITAUX DE TOULOUSE")
+
+
+        when:"on cherche les museums dont le titre du museum contient 'not_today'"
+        res = museumService.searchMuseums("not_today", null, null)
+
+        then: "on ne récupère aucun museum"
+        res.size() == 0
+
+
+        when:"on positionne tous les critères à null"
+        res = museumService.searchMuseums(null, null, null)
+
+        then: "on récupère tous les museums"
+        res.size() == 12
     }
 }

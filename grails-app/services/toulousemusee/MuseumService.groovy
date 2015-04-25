@@ -32,4 +32,29 @@ class MuseumService {
         museum.address.delete()
         museum.delete()
     }
+
+    List<Museum> searchMuseums(String name, String street, String zipCode) {
+        def criteria = Museum.createCriteria()
+
+        List<Museum> museums = criteria.list {
+            if (name) {
+                like 'name', "%${name.toUpperCase()}%"
+            }
+
+            if (street) {
+                address {
+                    like 'street', "%${street.toUpperCase()}%"
+                }
+            }
+
+            if (zipCode) {
+                address {
+                    eq 'zipCode', zipCode
+                }
+            }
+
+            order('name')
+        }
+        museums
+    }
 }
