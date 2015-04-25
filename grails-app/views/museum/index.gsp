@@ -6,6 +6,12 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'museum.label', default: 'Museum')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+		<style>
+			body  {
+				max-width:1300px;
+			}
+		</style>
 	</head>
 	<body>
 		<a href="#list-museum" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -33,7 +39,9 @@
 						<g:sortableColumn property="metroAccess" title="${message(code: 'museum.metroAccess.label', default: 'Metro Access')}" />
 					
 						<g:sortableColumn property="busAccess" title="${message(code: 'museum.busAccess.label', default: 'Bus Access')}" />
-					
+
+						<th><g:message code="museum.address.label" default="Address" /></th>
+
 						<th><g:message code="museum.manager.label" default="Manager" /></th>
 					
 					</tr>
@@ -52,6 +60,8 @@
 					
 						<td>${fieldValue(bean: museumInstance, field: "busAccess")}</td>
 					
+						<td>${fieldValue(bean: museumInstance, field: "address")}</td>
+
 						<td>${fieldValue(bean: museumInstance, field: "manager")}</td>
 					
 					</tr>
