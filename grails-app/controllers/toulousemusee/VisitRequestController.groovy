@@ -11,8 +11,7 @@ class VisitRequestController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        //render(view: '/visitrequest.gsp', model: [favoriteMuseumInstanceList: User.list().get(0).favorites])
-        respond VisitRequest.list(params), model: [visitRequestInstanceCount: VisitRequest.count()]
+        render(view: '/visitrequest.gsp', model: [favoriteMuseumInstanceList: User.list().get(0).favorites])
     }
 
     def addVisitRequest() {
