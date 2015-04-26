@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: MetalDiamond
-  Date: 25/04/2015
-  Time: 15:28
---%>
 <%@ page import="toulousemusee.VisitRequestController" %>
 <!DOCTYPE html>
 <html>
@@ -34,18 +28,35 @@
     .center {
         text-align:center;
     }
+
+    #menu {
+        padding:5px;
+        background:#eee;
+    }
+    #menu ul {
+        list-style:none;
+    }
+    #menu li {
+        line-height: 1.3;
+        list-style-position: inside;
+        margin: 0.25em 0;
+    }
     </style>
 </head>
-
 <body>
-
+    <div id="menu" role="navigation">
+        <ul>
+            <li><g:link controller="museum" action="index">Home</g:link></li>
+            <li><g:link controller="visitRequest" action="index">Create visit request</g:link></li>
+        </ul>
+    </div>
     <div id="list-favorites" class="content scaffold-list" role="main">
         <g:if test="${favoriteMuseumInstanceList && favoriteMuseumInstanceList.size() > 0}">
             <h3>Favorites</h3>
             <table>
                 <thead>
                 <tr>
-                    <th>Museum name</th>
+                    <th>Museums</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,7 +68,6 @@
                 </tbody>
             </table>
         </g:if>
-
     </div>
 
     <h3>Demande de visite</h3>
@@ -89,6 +99,5 @@
             </div>
         </fieldset>
     </g:form>
-
 </body>
 </html>

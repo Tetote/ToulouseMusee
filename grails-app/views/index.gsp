@@ -27,10 +27,29 @@
 			.center {
 				text-align:center;
 			}
+
+			#menu {
+				padding:5px;
+				background:#eee;
+			}
+			#menu ul {
+				list-style:none;
+			}
+			#menu li {
+				line-height: 1.3;
+				list-style-position: inside;
+				margin: 0.25em 0;
+			}
 		</style>
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<div id="menu" role="navigation">
+			<ul>
+				<li><g:link controller="museum" action="index">Home</g:link></li>
+				<li><g:link controller="visitRequest" action="index">Create visit request</g:link></li>
+			</ul>
+		</div>
 		<div id="page-body" role="main">
 			<div id="list-favorites" class="content scaffold-list" role="main">
 				<g:if test="${favoriteMuseumInstanceList && favoriteMuseumInstanceList.size() > 0}">
@@ -52,9 +71,6 @@
 						</tbody>
 					</table>
 				</g:if>
-
-                <g:link controller="visitRequest" action="index">Add visit request</g:link>
-
 			</div>
 			<div id="list-museum" class="content scaffold-list" role="main">
 				<h3>Search museums</h3>
@@ -124,7 +140,7 @@
 						</tbody>
 					</table>
 					<div class="pagination">
-						<g:paginate total="${museumInstanceCount ?: 0}" />
+						<g:paginate total="${museumInstanceCount ?: 0}" action="doSearchMuseums" params="${params}" />
 					</div>
 				</g:if>
 			</div>
