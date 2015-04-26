@@ -3,7 +3,7 @@ package toulousemusee
 class User {
 
     static hasMany = [
-        favoris : Museum
+        favorites : Museum
     ]
 
     static constraints = {
