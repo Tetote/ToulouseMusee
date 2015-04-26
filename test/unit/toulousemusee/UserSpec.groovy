@@ -9,12 +9,12 @@ import spock.lang.Specification
 @TestFor(User)
 class UserSpec extends Specification {
 
-    def setup() {
-    }
+    void "test de la validatité d'un user"() {
 
-    def cleanup() {
-    }
+        given: "Un utilisateur"
+        User user = new User()
 
-    void "test something"() {
+        expect: "Le utilisateur est valide"
+        user.validate()
     }
 }
