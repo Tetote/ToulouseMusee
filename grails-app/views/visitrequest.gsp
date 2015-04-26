@@ -13,25 +13,35 @@
 
 <body>
 
-    <div class="container">
-
-        <div class="row">
-            <h1>Demande de visite</h1>
-        </div>
-
-        <div class="row>
-            <div class="form-group">
-                <label>Date de début</label>
-                <input name="startPeriodDate" id="startPeriodDate" class="form-control input-lg" placeholder="JJ/MM/AAAA" tabindex="1" value="" type="text">
-
-                <label>Date de fin</label>
-                <input name="endPeriodDate" id="endPeriodDate" class="form-control input-lg" placeholder="JJ/MM/AAAA" tabindex="2" value="" type="text">
-
-                <label>Nombre de personnes</label>
-                <input name="nbPeople" id="nbPeople" class="form-control input-lg" placeholder="Max 6 Personnes" tabindex="3" value="" type="text">
+    <h3>Demande de visite</h3>
+    <g:if test="${flash.message}">
+        <div class="message" role="status">${flash.message}</div>
+    </g:if>
+    <g:form>
+        <fieldset class="form">
+            <div class="fieldcontain">
+                <label for="startPeriodDate">
+                    Date de début
+                </label>
+                <g:textField name="startPeriodDate"/>
             </div>
-        </div>
-    </div>
+            <div class="fieldcontain">
+                <label for="endPeriodDate">
+                    Date de fin
+                </label>
+                <g:textField name="endPeriodDate"/>
+            </div>
+            <div class="fieldcontain">
+                <label for="nbPeople">
+                    Nombre de personnes
+                </label>
+                <g:textField name="nbPeople"/>
+            </div>
+            <div class="center">
+                <g:actionSubmit action="" value="Envoyer" />
+            </div>
+        </fieldset>
+    </g:form>
 
 </body>
 </html>
