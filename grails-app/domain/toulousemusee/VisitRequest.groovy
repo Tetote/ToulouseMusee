@@ -25,6 +25,6 @@ class VisitRequest {
         code nullable: false
         startPeriodDate nullable: false
         endPeriodDate nullable: false
-        nbPeople min: 1
+        nbPeople min: 1, max: 6
     }
 }

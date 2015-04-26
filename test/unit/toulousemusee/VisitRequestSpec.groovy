@@ -50,6 +50,7 @@ class VisitRequestSpec extends Specification {
         2       | null                      | new Date(2015, 11, 15)    | 5
         2       | new Date(2015, 11, 13)    | null                      | 5
         42      | new Date(2015, 11, 13)    | new Date(2015, 11, 19)    | 0
+        42      | new Date(2015, 11, 13)    | new Date(2015, 11, 19)    | 7
     }
 
     @Unroll
