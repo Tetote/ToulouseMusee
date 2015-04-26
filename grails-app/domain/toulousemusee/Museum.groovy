@@ -29,4 +29,9 @@ class Museum {
         manager nullable: false
         address nullable: false
     }
+
+    static mapping = {
+        manager fetch: 'join'
+        address fetch: 'join'
+    }
 }
