@@ -25,6 +25,8 @@ class MuseumControllerSpec extends Specification {
         then: "The model is correct"
         !model.zipCodeInstanceList
         model.zipCodeInstanceList.size() == 0
+        !model.favoriteMuseumInstanceList
+        model.favoriteMuseumInstanceList.size() == 0
     }
 
     void "Test the doSearchMuseums action returns the correct model"() {
@@ -34,8 +36,12 @@ class MuseumControllerSpec extends Specification {
         then: "The model is correct"
         !model.museumInstanceList
         model.museumInstanceCount == 0
+        !model.favorisInstanceList
+        model.favorisInstanceList.size() == 0
         !model.zipCodeInstanceList
         model.zipCodeInstanceList.size() == 0
+        !model.favoriteMuseumInstanceList
+        model.favoriteMuseumInstanceList.size() == 0
     }
 
     void "Test the create action returns the correct model"() {

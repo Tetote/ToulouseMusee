@@ -34,11 +34,13 @@ class MuseumService {
     }
 
     void addFavorite(Museum museum, User user) {
-        user.addToFavortes(museum)
+        user.addToFavorites(museum)
+        user.save(flush: true)
     }
 
     void removeFavorite(Museum museum, User user) {
         user.removeFromFavorites(museum)
+        user.save(flush: true)
     }
 
     List<Museum> searchMuseums(String name, String street, String zipCode) {

@@ -12,7 +12,6 @@ class MuseumServiceIntegrationSpec extends Specification{
     MuseumService museumService;
 
     void "test insertion ou mise à jour d'un musee avec une adresse et un manager"() {
-
         given:"address"
         Address address = new Address(num: 2, street: "Rue des Archives", zipCode: "31500", city: "Toulouse")
 
@@ -45,7 +44,6 @@ class MuseumServiceIntegrationSpec extends Specification{
     }
 
     void "test insertion ou mise à jour d'un musee avec une adresse"() {
-
         given:"address"
         Address address = new Address(num: 2, street: "Rue des Archives", zipCode: "31500", city: "Toulouse")
 
@@ -76,7 +74,6 @@ class MuseumServiceIntegrationSpec extends Specification{
     }
 
     void "test insertion ou mise à jour d'un musee avec un manager"() {
-
         given:"manager"
         Manager manager = new Manager(name: "Mairie de Toulouse - DGA Culture")
 
@@ -147,5 +144,37 @@ class MuseumServiceIntegrationSpec extends Specification{
 
         then: "on récupère tous les museums"
         res.size() == 12
+    }
+
+
+    void "test d'ajout en favoris"() {
+        given: "un user"
+        User user = User.list().get(0)
+
+        and: "un museum"
+        Museum museum = Museum.list().get(0)
+
+        when: "on ajoute ce musee dans les favoris"
+        museumService.addFavorite(museum, user)
+
+        then: "le musee est dans les favoris"
+        user.favorites.contains(museum)
+    }
+
+    void "test de suppression d'un favoris"() {
+        given: "un user"
+        User user = User.list().get(0)
+
+        and: "un museum"
+        Museum museum = Museum.list().get(0)
+
+        and: "le musee est dans les favoris"
+        user.favorites.contains(museum)
+
+        when: "on supprime ce musee des favoris"
+        museumService.removeFavorite(museum, user)
+
+        then: "le musee n'est plus dans les favoris"
+        !user.favorites.contains(museum)
     }
 }

@@ -32,6 +32,27 @@
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="page-body" role="main">
+			<div id="list-favorites" class="content scaffold-list" role="main">
+				<g:if test="favoriteMuseumInstanceList">
+					<h3>Favorites</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Museum name</th>
+								<th>Favorite</th>
+							</tr>
+						</thead>
+						<tbody>
+						<g:each in="${favoriteMuseumInstanceList}" status="i" var="museumInstance">
+							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+								<td>${fieldValue(bean: museumInstance, field: "name")}</td>
+								<td><g:link action="removeFromFavorite" id="${museumInstance.id}">Remove</g:link></td>
+							</tr>
+						</g:each>
+						</tbody>
+					</table>
+				</g:if>
+			</div>
 			<div id="list-museum" class="content scaffold-list" role="main">
 				<h3>Search museums</h3>
 				<g:if test="${flash.message}">
@@ -74,6 +95,7 @@
 							<g:sortableColumn property="busAccess" title="${message(code: 'museum.busAccess.label', default: 'Bus Access')}" />
 							<th><g:message code="museum.address.label" default="Address" /></th>
 							<th><g:message code="museum.manager.label" default="Manager" /></th>
+							<th>Favorite</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -86,6 +108,14 @@
 								<td>${fieldValue(bean: museumInstance, field: "busAccess")}</td>
 								<td>${fieldValue(bean: museumInstance, field: "address")}</td>
 								<td>${fieldValue(bean: museumInstance, field: "manager")}</td>
+								<td>
+									<g:if test="${favoriteInstanceList.get(i)}">
+										<g:link action="removeFromFavorite" id="${museumInstance.id}">Remove</g:link>
+									</g:if>
+									<g:else>
+										<g:link action="addToFavorite" id="${museumInstance.id}">Add</g:link>
+									</g:else>
+								</td>
 							</tr>
 						</g:each>
 						</tbody>
