@@ -33,6 +33,14 @@ class MuseumService {
         museum.delete()
     }
 
+    void addFavorite(Museum museum, User user) {
+        user.addToFavortes(museum)
+    }
+
+    void removeFavorite(Museum museum, User user) {
+        user.removeFromFavorites(museum)
+    }
+
     List<Museum> searchMuseums(String name, String street, String zipCode) {
         def criteria = Museum.createCriteria()
 
