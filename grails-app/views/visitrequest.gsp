@@ -40,7 +40,7 @@
 <body>
 
     <div id="list-favorites" class="content scaffold-list" role="main">
-        <g:if test="favoriteMuseumInstanceList">
+        <g:if test="${favoriteMuseumInstanceList && favoriteMuseumInstanceList.size() > 0}">
             <h3>Favorites</h3>
             <table>
                 <thead>

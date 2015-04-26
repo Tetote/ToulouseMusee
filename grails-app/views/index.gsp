@@ -33,7 +33,7 @@
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div id="page-body" role="main">
 			<div id="list-favorites" class="content scaffold-list" role="main">
-				<g:if test="favoriteMuseumInstanceList">
+				<g:if test="${favoriteMuseumInstanceList && favoriteMuseumInstanceList.size() > 0}">
 					<h3>Favorites</h3>
 					<table>
 						<thead>
@@ -86,7 +86,7 @@
 						</div>
 					</fieldset>
 				</g:form>
-				<g:if test="museumInstanceList" >
+				<g:if test="${museumInstanceList && museumInstanceList.size() > 0}" >
 					<h3>List of museums</h3>
 					<table>
 						<thead>

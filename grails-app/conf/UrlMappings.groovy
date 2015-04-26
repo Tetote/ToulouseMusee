@@ -11,7 +11,7 @@ class UrlMappings {
             action:"index"
         )
 
-        "/visitrequest.gsp"(controller:"visitRequest",
+        "/visitrequest"(controller:"visitRequest",
                             action:"index"
         )
 
