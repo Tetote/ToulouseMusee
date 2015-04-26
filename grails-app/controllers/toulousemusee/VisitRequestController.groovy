@@ -13,7 +13,8 @@ class VisitRequestController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: User.list().get(0).favorites])
+        int codeVisitRequest = params.codeVisitRequest >= -1 ? params.codeVisitRequest : -2
+        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: User.list().get(0).favorites, codeVisitRequest: codeVisitRequest])
     }
 
     def addVisitRequest() {
@@ -26,7 +27,8 @@ class VisitRequestController {
 
         visitRequestService.insertVisitRequestForMuseums(visitRequest, user.favorites)
 
-        redirect(action: "index")
+        int codeVisitRequest = visitRequest.hasErrors() ? -1 : visitRequest.code
+        redirect(action: "index", params: [codeVisitRequest: codeVisitRequest])
     }
 
     def show(VisitRequest visitRequestInstance) {

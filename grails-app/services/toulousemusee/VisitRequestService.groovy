@@ -7,7 +7,7 @@ class VisitRequestService {
 
     VisitRequest insertVisitRequest(Date startPeriodDate, Date endPeriodDate, int nbPeople) {
         new VisitRequest(
-                code: 0,
+                code: VisitRequest.list().size(),
                 startPeriodDate: startPeriodDate,
                 endPeriodDate: endPeriodDate,
                 nbPeople: nbPeople,
