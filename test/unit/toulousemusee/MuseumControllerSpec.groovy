@@ -5,7 +5,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MuseumController)
-@Mock(Museum)
+@Mock([Museum, Address, Manager])
 class MuseumControllerSpec extends Specification {
 
     def populateValidParams(params) {
@@ -23,8 +23,19 @@ class MuseumControllerSpec extends Specification {
         controller.index()
 
         then: "The model is correct"
+        !model.zipCodeInstanceList
+        model.zipCodeInstanceList.size() == 0
+    }
+
+    void "Test the doSearchMuseums action returns the correct model"() {
+        when: "The doSearchMuseums action is executed"
+        controller.doSearchMuseums()
+
+        then: "The model is correct"
         !model.museumInstanceList
-        model.museumInstanceCount == 0
+        model.museumInstanceListCount == 0
+        !model.zipCodeInstanceList
+        model.zipCodeInstanceList.size() == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -100,7 +111,7 @@ class MuseumControllerSpec extends Specification {
         controller.update(null)
 
         then: "A 404 error is returned"
-        response.redirectedUrl == '/museum/index'
+        response.redirectedUrl == '/'
         flash.message != null
 
 
@@ -132,7 +143,7 @@ class MuseumControllerSpec extends Specification {
         controller.delete(null)
 
         then: "A 404 is returned"
-        response.redirectedUrl == '/museum/index'
+        response.redirectedUrl == '/'
         flash.message != null
 
         when: "A domain instance is created"
@@ -148,7 +159,7 @@ class MuseumControllerSpec extends Specification {
 
         then: "The instance is deleted"
         Museum.count() == 0
-        response.redirectedUrl == '/museum/index'
+        response.redirectedUrl == '/index'
         flash.message != null
     }
 }

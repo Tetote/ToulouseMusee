@@ -23,7 +23,6 @@ class MuseumController {
         List<Museum> museumsList = museumService.searchMuseums(params.name, params.street, params.zipCode)
 
         render(view: '/index',
-                params: [name: params.name, street: params.street, zipCode: params.zipCode],
                 model: [museumInstanceList: museumsList,
                         museumInstanceCount: museumsList.size(),
                         zipCodeInstanceList: Address.listZipCode()])
