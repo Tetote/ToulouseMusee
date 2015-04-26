@@ -140,7 +140,9 @@
 						</tbody>
 					</table>
 					<div class="pagination">
-						<g:paginate total="${museumInstanceCount ?: 0}" action="doSearchMuseums" params="${params}" />
+						<g:paginate total="${museumInstanceCount ?: 0}"
+									params="${params}" max="5"
+									action="doSearchMuseums" />
 					</div>
 				</g:if>
 			</div>

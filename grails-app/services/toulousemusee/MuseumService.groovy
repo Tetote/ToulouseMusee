@@ -43,10 +43,10 @@ class MuseumService {
         user.save(flush: true)
     }
 
-    List<Museum> searchMuseums(String name, String street, String zipCode) {
+    List<Museum> searchMuseums(String name, String street, String zipCode, int offset, int max) {
         def criteria = Museum.createCriteria()
 
-        List<Museum> museums = criteria.list {
+        List<Museum> museums = criteria.list(offset: offset, max: max) {
             if (name) {
                 like 'name', "%${name.toUpperCase()}%"
             }

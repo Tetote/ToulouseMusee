@@ -108,7 +108,7 @@ class MuseumServiceIntegrationSpec extends Specification{
         jeuTestService
 
         when: "on cherche les museums dont le titre du museum contient 'compagnons'"
-        List<Museum> res = museumService.searchMuseums("compagnons", null, null)
+        List<Museum> res = museumService.searchMuseums("compagnons", null, null, 0, 100)
 
         then: "on récupère uniquement un museum"
         res.size() == 1
@@ -116,7 +116,7 @@ class MuseumServiceIntegrationSpec extends Specification{
 
 
         when: "on cherche les museums dont la rue du museum contient 'archives'"
-        res = museumService.searchMuseums(null, "archives", null)
+        res = museumService.searchMuseums(null, "archives", null, 0, 100)
 
         then: "on récupère uniquement un museum"
         res.size() == 1
@@ -124,7 +124,7 @@ class MuseumServiceIntegrationSpec extends Specification{
 
 
         when: "on cherche les museums dont le code postal du museum est '31300"
-        res = museumService.searchMuseums(null, null, "31300")
+        res = museumService.searchMuseums(null, null, "31300", 0, 100)
 
         then: "on récupère uniquement un museum"
         res.size() == 2
@@ -133,14 +133,14 @@ class MuseumServiceIntegrationSpec extends Specification{
 
 
         when:"on cherche les museums dont le titre du museum contient 'not_today'"
-        res = museumService.searchMuseums("not_today", null, null)
+        res = museumService.searchMuseums("not_today", null, null, 0, 100)
 
         then: "on ne récupère aucun museum"
         res.size() == 0
 
 
         when:"on positionne tous les critères à null"
-        res = museumService.searchMuseums(null, null, null)
+        res = museumService.searchMuseums(null, null, null, 0, 100)
 
         then: "on récupère tous les museums"
         res.size() == 12

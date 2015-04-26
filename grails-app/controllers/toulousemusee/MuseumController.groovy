@@ -16,12 +16,24 @@ class MuseumController {
         params.max = Math.min(max ?: 10, 100)
 
         render(view: '/index',
+                params: params,
                 model: [zipCodeInstanceList: Address.listZipCode(),
                         favoriteMuseumInstanceList: User.list().get(0).favorites])
     }
 
     def doSearchMuseums() {
-        List<Museum> museumsList = museumService.searchMuseums(params.name, params.street, params.zipCode)
+        int offset = params.offset ? Integer.parseInt(params.offset) : 0
+
+        List<Museum> museumsList = museumService.searchMuseums(params.name,
+                params.street,
+                params.zipCode,
+                offset,
+                5)
+        int museumsListNumber = museumService.searchMuseums(params.name,
+                params.street,
+                params.zipCode,
+                0,
+                100).size()
 
         List<Boolean> favoritesList = new ArrayList<>()
         User currentUser = User.list().get(0)
@@ -30,8 +42,9 @@ class MuseumController {
         }
 
         render(view: '/index',
+                params: params,
                 model: [museumInstanceList: museumsList,
-                        museumInstanceCount: museumsList.size(),
+                        museumInstanceCount: museumsListNumber,
                         favoriteInstanceList: favoritesList,
                         zipCodeInstanceList: Address.listZipCode(),
                         favoriteMuseumInstanceList: User.list().get(0).favorites])
