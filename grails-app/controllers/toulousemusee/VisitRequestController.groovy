@@ -7,38 +7,25 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class VisitRequestController {
 
+    VisitRequestService visitRequestService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        render(view: '/visitrequest.gsp', model: [favoriteMuseumInstanceList: User.list().get(0).favorites])
+        respond VisitRequest.list(params), model: [visitRequestInstanceCount: VisitRequest.count()]
+        //render(view: '/visitrequest.gsp', model: [favoriteMuseumInstanceList: User.list().get(0).favorites])
     }
 
     def addVisitRequest() {
         User user = User.list().get(0)
 
-        VisitRequest vr = new VisitRequest(
-                code: 0,
-                startPeriodDate: params.startPeriodDate,
-                endPeriodDate: params.endPeriodDate,
-                nbPeople: params.nbPeople,
-                status: VisitRequest.Status.PENDING
-        )
+        VisitRequest visitRequest = visitRequestService.insertVisitRequest(
+                params.startPeriodDate,
+                params.endPeriodDate,
+                Integer.parseInt(params.nbPeople))
 
-        vr.save(flush: true, failOnError: true)
-
-        for(Museum m : user.getFavorites()) {
-
-            MuseumVisitRequest mvr = new MuseumVisitRequest(
-                requestDate: new Date(),
-                museum: m,
-                visitRequest: vr
-            )
-
-            vr.addToMuseumVisitRequest(mvr)
-        }
-
-        vr.save(flush: true, failOnError: true)
+        visitRequestService.insertVisitRequestForMuseums(visitRequest, user.favorites)
 
         redirect(action: "index")
     }
