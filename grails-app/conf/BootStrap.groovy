@@ -7,6 +7,7 @@ class BootStrap {
     def init = { servletContext ->
 
         jeuTestService.createJeuTestForMuseum()
+        jeuTestService.createUser()
     }
     def destroy = {
     }

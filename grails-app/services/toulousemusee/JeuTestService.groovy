@@ -61,4 +61,10 @@ class JeuTestService {
             }
         }
     }
+
+    def createUser() {
+        if (User.count == 0) {
+            new User().save()
+        }
+    }
 }
