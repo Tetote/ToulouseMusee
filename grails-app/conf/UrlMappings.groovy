@@ -10,6 +10,11 @@ class UrlMappings {
         "/"(controller:"museum",
             action:"index"
         )
+
+        "/visitrequest.gsp"(controller:"visitRequest",
+                            action:"index"
+        )
+
         "500"(view:'/error')
 	}
 }

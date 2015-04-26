@@ -52,6 +52,9 @@
 						</tbody>
 					</table>
 				</g:if>
+
+                <g:link controller="visitRequest" action="index">Add visit request</g:link>
+
 			</div>
 			<div id="list-museum" class="content scaffold-list" role="main">
 				<h3>Search museums</h3>
