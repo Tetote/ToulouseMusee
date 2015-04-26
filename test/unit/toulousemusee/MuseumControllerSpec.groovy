@@ -33,7 +33,7 @@ class MuseumControllerSpec extends Specification {
 
         then: "The model is correct"
         !model.museumInstanceList
-        model.museumInstanceListCount == 0
+        model.museumInstanceCount == 0
         !model.zipCodeInstanceList
         model.zipCodeInstanceList.size() == 0
     }
