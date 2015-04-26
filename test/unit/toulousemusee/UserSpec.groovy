@@ -2,6 +2,7 @@ package toulousemusee
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import spock.lang.Unroll
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -9,12 +10,13 @@ import spock.lang.Specification
 @TestFor(User)
 class UserSpec extends Specification {
 
-    void "test de la validatité d'un user"() {
+    @Unroll
+    void "test de la validatite d'un user"() {
 
         given: "Un utilisateur"
         User user = new User()
 
-        expect: "Le utilisateur est valide"
+        expect: "L'utilisateur est valide"
         user.validate()
     }
 }
