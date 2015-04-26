@@ -15,7 +15,8 @@ class VisitRequestServiceIntegrationSpec extends Specification{
                 code: 1,
                 startPeriodDate: new Date(2015, 11, 13),
                 endPeriodDate: new Date(2015, 11, 20) ,
-                nbPeople: 3)
+                nbPeople: 3,
+                status: VisitRequest.Status.PENDING)
 
         when: "on tente de répercuter en base la création ou la modification de la visit request"
         VisitRequest resultVisitRequest = visitRequestService.insertVisitRequest(visitRequest)
