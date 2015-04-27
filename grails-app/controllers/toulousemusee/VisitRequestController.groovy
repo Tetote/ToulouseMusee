@@ -13,21 +13,33 @@ class VisitRequestController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        int codeVisitRequest = params.codeVisitRequest >= -1 ? params.codeVisitRequest : -2
-        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: User.list().get(0).favorites, codeVisitRequest: codeVisitRequest])
+        int codeVisitRequest = -2;
+        try {
+            codeVisitRequest = Integer.parseInt(params.codeVisitRequest)
+        } catch(Exception e) {
+        }
+
+        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: User.list().get(0).favorites,
+                                              codeVisitRequest: codeVisitRequest])
     }
 
     def addVisitRequest() {
         User user = User.list().get(0)
+        int nbPeople = -1
+        try {
+            nbPeople = Integer.parseInt(params.nbPeople)
+        } catch (Exception e) {
+        }
 
         VisitRequest visitRequest = visitRequestService.insertVisitRequest(
                 params.startPeriodDate,
                 params.endPeriodDate,
-                Integer.parseInt(params.nbPeople))
+                nbPeople)
 
-        visitRequestService.insertVisitRequestForMuseums(visitRequest, user.favorites)
+        if (visitRequest && !visitRequest.hasErrors())
+            visitRequestService.insertVisitRequestForMuseums(visitRequest, user.favorites)
 
-        int codeVisitRequest = visitRequest.hasErrors() ? -1 : visitRequest.code
+        int codeVisitRequest = (!visitRequest || visitRequest.hasErrors()) ? -1 : visitRequest.code
         redirect(action: "index", params: [codeVisitRequest: codeVisitRequest])
     }
 

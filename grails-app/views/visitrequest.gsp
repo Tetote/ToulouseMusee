@@ -101,7 +101,7 @@
     </g:form>
 
     <g:if test="${codeVisitRequest >= 0}">
-        <p>Votre demande de visite a bien été ajoutée, nous vous contacterons</p>
+        <p>Votre demande de visite a bien été ajoutée (numéro ${codeVisitRequest}), nous vous contacterons</p>
     </g:if>
     <g:elseif test="${codeVisitRequest == -1}">
         <p>Erreur, go appler le SAV</p>

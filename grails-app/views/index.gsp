@@ -107,11 +107,11 @@
 					<table>
 						<thead>
 						<tr>
-							<g:sortableColumn property="name" title="${message(code: 'museum.name.label', default: 'Name')}" />
-							<g:sortableColumn property="hours" title="${message(code: 'museum.hours.label', default: 'Hours')}" />
-							<g:sortableColumn property="phoneNumber" title="${message(code: 'museum.phoneNumber.label', default: 'Phone Number')}" />
-							<g:sortableColumn property="metroAccess" title="${message(code: 'museum.metroAccess.label', default: 'Metro Access')}" />
-							<g:sortableColumn property="busAccess" title="${message(code: 'museum.busAccess.label', default: 'Bus Access')}" />
+							<th><g:message code="museum.name.label" default="Name" /></th>
+							<th><g:message code="museum.hours.labe" default="Hours" /></th>
+							<th><g:message code="museum.phoneNumber.label" default="Phone Number" /></th>
+							<th><g:message code="museum.metroAccess.label" default="Metro Access" /></th>
+							<th><g:message code="museum.busAccess.label" default="Bus Access}" /></th>
 							<th><g:message code="museum.address.label" default="Address" /></th>
 							<th><g:message code="museum.manager.label" default="Manager" /></th>
 							<th>Favorite</th>
