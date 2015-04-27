@@ -5,7 +5,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(MuseumController)
-@Mock([Museum, Address, Manager])
+@Mock([Museum, Address, Manager, User])
 class MuseumControllerSpec extends Specification {
 
     def populateValidParams(params) {
@@ -13,6 +13,8 @@ class MuseumControllerSpec extends Specification {
         params["name"] = "ENSEMBLE CONVENTUEL DES JACOBINS"
         params["hours"] = "Ouvert tous les jours de 9h à 19h."
         params["phoneNumber"] = "561222192"
+        params["metroAccess"] = "Esquirol, Capitole (A)"
+        params["busAccess"] = "NCV, 2, 10, 12, 14, 38, 78, 80"
         params["manager"] = Mock(Manager)
         params["address"] = Mock(Address)
     }
@@ -24,9 +26,7 @@ class MuseumControllerSpec extends Specification {
 
         then: "The model is correct"
         !model.zipCodeInstanceList
-        model.zipCodeInstanceList.size() == 0
         !model.favoriteMuseumInstanceList
-        model.favoriteMuseumInstanceList.size() == 0
     }
 
     void "Test the doSearchMuseums action returns the correct model"() {
@@ -37,11 +37,8 @@ class MuseumControllerSpec extends Specification {
         !model.museumInstanceList
         model.museumInstanceCount == 0
         !model.favorisInstanceList
-        model.favorisInstanceList.size() == 0
         !model.zipCodeInstanceList
-        model.zipCodeInstanceList.size() == 0
         !model.favoriteMuseumInstanceList
-        model.favoriteMuseumInstanceList.size() == 0
     }
 
     void "Test the create action returns the correct model"() {

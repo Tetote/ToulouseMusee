@@ -19,12 +19,14 @@ class VisitRequestController {
         } catch(Exception e) {
         }
 
-        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: User.list().get(0).favorites,
+        User currentUser = User.list().size() > 0 ? User.list().get(0) : null
+
+        render(view: '/visitrequest', model: [favoriteMuseumInstanceList: currentUser?.favorites,
                                               codeVisitRequest: codeVisitRequest])
     }
 
     def addVisitRequest() {
-        User user = User.list().get(0)
+        User currentUser = User.list().size() > 0 ? User.list().get(0) : null
         int nbPeople = -1
         try {
             nbPeople = Integer.parseInt(params.nbPeople)
@@ -37,7 +39,7 @@ class VisitRequestController {
                 nbPeople)
 
         if (visitRequest && !visitRequest.hasErrors())
-            visitRequestService.insertVisitRequestForMuseums(visitRequest, user.favorites)
+            visitRequestService.insertVisitRequestForMuseums(visitRequest, currentUser?.favorites)
 
         int codeVisitRequest = (!visitRequest || visitRequest.hasErrors()) ? -1 : visitRequest.code
         redirect(action: "index", params: [codeVisitRequest: codeVisitRequest])

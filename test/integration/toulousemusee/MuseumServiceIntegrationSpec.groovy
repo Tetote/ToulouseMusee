@@ -73,6 +73,27 @@ class MuseumServiceIntegrationSpec extends Specification{
         resultMuseum.address == address
     }
 
+    void "test de la suppression d'un museum"() {
+        given:"un museum existant en base"
+        Museum unMuseum = Museum.list().get(0)
+
+        and:"son address"
+        Address address = unMuseum.address
+
+        and:"son manager"
+        Manager manager = unMuseum.manager
+
+        when:"on déclenche la suppression du museum"
+        museumService.deleteMuseum(unMuseum)
+
+        then:"le museum est supprimée de la base ainsi que son address"
+        Museum.findById(unMuseum.id) == null
+        Address.findById(address.id) == null
+
+        and:"le manager n'est pas supprimé"
+        Manager.findById(manager.id) != null
+    }
+
     void "test insertion ou mise à jour d'un musee avec un manager"() {
         given:"manager"
         Manager manager = new Manager(name: "Mairie de Toulouse - DGA Culture")

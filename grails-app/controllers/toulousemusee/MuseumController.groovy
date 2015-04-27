@@ -15,10 +15,12 @@ class MuseumController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 
+        User currentUser = User.list().size() > 0 ? User.list().get(0) : null
+
         render(view: '/index',
                 params: params,
                 model: [zipCodeInstanceList: Address.listZipCode(),
-                        favoriteMuseumInstanceList: User.list().get(0).favorites])
+                        favoriteMuseumInstanceList: currentUser?.favorites])
     }
 
     def doSearchMuseums() {
@@ -36,9 +38,10 @@ class MuseumController {
                 100).size()
 
         List<Boolean> favoritesList = new ArrayList<>()
-        User currentUser = User.list().get(0)
+
+        User currentUser = User.list().size() > 0 ? User.list().get(0) : null
         for (Museum museum : museumsList) {
-            favoritesList.add(currentUser.favorites.contains(museum))
+            favoritesList.add(currentUser?.favorites.contains(museum))
         }
 
         render(view: '/index',
@@ -47,7 +50,7 @@ class MuseumController {
                         museumInstanceCount: museumsListNumber,
                         favoriteInstanceList: favoritesList,
                         zipCodeInstanceList: Address.listZipCode(),
-                        favoriteMuseumInstanceList: User.list().get(0).favorites])
+                        favoriteMuseumInstanceList: currentUser?.favorites])
     }
 
     def addToFavorite(Museum museumInstance) {

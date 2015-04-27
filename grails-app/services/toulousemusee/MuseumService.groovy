@@ -29,8 +29,10 @@ class MuseumService {
     }
 
     void deleteMuseum(Museum museum) {
-        museum.address.delete()
+        Address address = museum.address
+
         museum.delete()
+        address.delete()
     }
 
     void addFavorite(Museum museum, User user) {

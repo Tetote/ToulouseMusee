@@ -5,7 +5,7 @@ import grails.test.mixin.*
 import spock.lang.*
 
 @TestFor(VisitRequestController)
-@Mock(VisitRequest)
+@Mock([VisitRequest, User])
 class VisitRequestControllerSpec extends Specification {
 
     def populateValidParams(params) {
@@ -23,8 +23,17 @@ class VisitRequestControllerSpec extends Specification {
         controller.index()
 
         then: "The model is correct"
-        !model.visitRequestInstanceList
-        model.visitRequestInstanceCount == 0
+        !model.favoriteMuseumInstanceList
+        model.codeVisitRequest == -2
+    }
+
+    void "Test the addVisitRequest action returns the correct model"() {
+        when: "The index action is executed"
+        controller.addVisitRequest()
+
+        then: "The model is correct"
+        !model.favoriteMuseumInstanceList
+        model.codeVisitRequest == -1
     }
 
     void "Test the create action returns the correct model"() {
@@ -100,7 +109,7 @@ class VisitRequestControllerSpec extends Specification {
         controller.update(null)
 
         then: "A 404 error is returned"
-        response.redirectedUrl == '/visitRequest/index'
+        response.redirectedUrl == '/visitrequest'
         flash.message != null
 
 
@@ -132,7 +141,7 @@ class VisitRequestControllerSpec extends Specification {
         controller.delete(null)
 
         then: "A 404 is returned"
-        response.redirectedUrl == '/visitRequest/index'
+        response.redirectedUrl == '/visitrequest'
         flash.message != null
 
         when: "A domain instance is created"
@@ -148,7 +157,7 @@ class VisitRequestControllerSpec extends Specification {
 
         then: "The instance is deleted"
         VisitRequest.count() == 0
-        response.redirectedUrl == '/visitRequest/index'
+        response.redirectedUrl == '/visitrequest'
         flash.message != null
     }
 }
